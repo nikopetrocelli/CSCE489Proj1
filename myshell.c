@@ -64,6 +64,16 @@ void process(char*string){
 	//Does it contain these commands?
 	else if(strstr(string, create)){
 		printf("\ntime to create\n");
+		//create a new array to store string without spaces (so we can ignore spaces)
+		char c[50];
+		//copy string into c, but without spaces
+		removeBlank(c, string);
+		printf("\nThe new string is %s\n", c);
+		//now that we have no spaces, we know the file name starts at the 6th element of the string, limiting factor for this, is that file names cannot contain spaces
+		char name[50];
+		for(int i = 0; i < 50; i++) name[i] = c[i+6];		
+		printf("\nThe name parameter is %s\n", name);
+		
 		return;}
 	else if(strstr(string, update)){
 		printf("\ntime to update\n");
@@ -76,6 +86,21 @@ void process(char*string){
 		return;
 	}
 
+
+}
+
+void removeBlank(char *c, const char *s){
+	
+	// I referenced stack overflow for creation of this algorithm. It basically loops through S and copies over everything that's not a space to c. This allows the new array to have
+	//the same contents of string, but without spaces
+	for(;*s;++s){
+		if (*s != ' ') 
+			*c++ = *s;
+			
+	}
+	*c = *s;
+	
+	return;
 
 }
 
