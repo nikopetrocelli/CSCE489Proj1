@@ -7,7 +7,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-
+#include <string.h>
+#include <sys/types.h>
 #include "shellfuncts.h"
 
 int input(char*string){
@@ -48,7 +49,10 @@ void process(char*string){
 	//Check if it matches the commands here	
 	if(strcmp(string, halt) == 0)
 		quit();
-	else if(strcmp(string, create) == 0){
+	else if(strcmp(string, dir) == 0){
+		printf("\ntime to dir\n");
+		return;}
+	/*else if(strcmp(string, create) == 0){
 		printf("\ntime to create\n");
 		return;}
 	else if(strcmp(string, update) == 0){
@@ -56,9 +60,16 @@ void process(char*string){
 		return;}
 	else if(strcmp(string, list) == 0){
 		printf("\ntime to list\n");
+		return;}*/
+	//Does it contain these commands?
+	else if(strstr(string, create)){
+		printf("\ntime to create\n");
 		return;}
-	else if(strcmp(string, dir) == 0){
-		printf("\ntime to dir\n");
+	else if(strstr(string, update)){
+		printf("\ntime to update\n");
+		return;}
+	else if(strstr(string, list)	){
+		printf("\ntime to list\n");
 		return;}
 	else{
 		printf("\nNot a valid command please try again.\n");
@@ -87,8 +98,13 @@ int main(int argv, const char *argc[]) {
 	char string[50];
 	
 	
+	
 	while (1){
 		
+		pid_t pid1 = getpid();
+		
+		printf("\nThe current pid is: %lun", pid1);
+		printf("\n\n");
 		//While we aren't told to exit, keep processing the input
 		process(string);
 		
