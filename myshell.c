@@ -37,6 +37,10 @@ void process(char*string){
 	
 	//Define all the commands to be used here
 	const char* halt = "halt";
+	const char* create = "create";
+	const char* update = "update";
+	const char* list = "list";
+	const char* dir = "dir";
 	
 	//Get the user's input
 	input(string);
@@ -44,6 +48,18 @@ void process(char*string){
 	//Check if it matches the commands here	
 	if(strcmp(string, halt) == 0)
 		quit();
+	else if(strcmp(string, create) == 0){
+		printf("\ntime to create\n");
+		return;}
+	else if(strcmp(string, update) == 0){
+		printf("\ntime to update\n");
+		return;}
+	else if(strcmp(string, list) == 0){
+		printf("\ntime to list\n");
+		return;}
+	else if(strcmp(string, dir) == 0){
+		printf("\ntime to dir\n");
+		return;}
 	else{
 		printf("\nNot a valid command please try again.\n");
 		return;
