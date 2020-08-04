@@ -44,6 +44,7 @@ void send_msg(const char *param2) {
 }*/
 void create(const char *name){
 
+
 	FILE *file;
 	if ((file = fopen(name,"r"))){
 		fclose(file);
