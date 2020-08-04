@@ -34,7 +34,7 @@ void quit(){
 }
 
 
-void process(char*string){
+int process(char*string){
 	
 	//Define all the commands to be used here
 	const char* halt = "halt";
@@ -51,7 +51,7 @@ void process(char*string){
 		quit();
 	else if(strcmp(string, dir) == 0){
 		printf("\ntime to dir\n");
-		return;}
+		return 1;}
 	/*else if(strcmp(string, create) == 0){
 		printf("\ntime to create\n");
 		return;}
@@ -65,25 +65,16 @@ void process(char*string){
 	else if(strstr(string, create)){
 		printf("\ntime to create\n");
 		//create a new array to store string without spaces (so we can ignore spaces)
-		char c[50];
-		//copy string into c, but without spaces
-		removeBlank(c, string);
-		printf("\nThe new string is %s\n", c);
-		//now that we have no spaces, we know the file name starts at the 6th element of the string, limiting factor for this, is that file names cannot contain spaces
-		char name[50];
-		for(int i = 0; i < 50; i++) name[i] = c[i+6];		
-		printf("\nThe name parameter is %s\n", name);
-		
-		return;}
+		return 2;}
 	else if(strstr(string, update)){
 		printf("\ntime to update\n");
-		return;}
+		return 3;}
 	else if(strstr(string, list)	){
 		printf("\ntime to list\n");
-		return;}
+		return 4;}
 	else{
 		printf("\nNot a valid command please try again.\n");
-		return;
+		return 0;
 	}
 
 
@@ -131,7 +122,29 @@ int main(int argv, const char *argc[]) {
 		printf("\nThe current pid is: %lun", pid1);
 		printf("\n\n");
 		//While we aren't told to exit, keep processing the input
-		process(string);
+		int response;
+		response = process(string);
+		printf("\n%i", response);
+		
+		//we go into create mode
+		if (response == 2){
+			char c[50];
+			//copy string into c, but without spaces
+			removeBlank(c, string);
+			printf("\nThe new string is %s\n", c);
+			//now that we have no spaces, we know the file name starts at the 6th element of the string, limiting factor for this, is that file names cannot contain spaces
+			char name[50];
+			//size_t size = sizeof(c);
+			//printf(size);
+			
+				for(int i = 0; i < 50; i++) name[i] = c[i+6];		
+				printf("\nThe name parameter is %s\n", name);
+				create(name);
+			//else{
+			//	printf("\nInvalid file name\n");}
+
+		}
+		
 		
 	
 	}
