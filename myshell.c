@@ -112,36 +112,54 @@ int main(int argv, const char *argc[]) {
 	
 	//Declare the max size for the user's input string, 50 is sufficient for this shell
 	char string[50];
-	
+
+		//print process
+	pid_t pid1 = getpid();
+	printf("\nThe current pid is: %lun", pid1);
+	printf("\n\n");
 	
 	
 	while (1){
 		
-		pid_t pid1 = getpid();
-		
-		printf("\nThe current pid is: %lun", pid1);
-		printf("\n\n");
+
 		//While we aren't told to exit, keep processing the input
 		int response;
 		response = process(string);
-		printf("\n%i", response);
+		
+		//debugging line
+		//printf("\n%i", response);
 		
 		//we go into create mode
 		if (response == 2){
+			//Create new process to execute this command
+			//fork();
+			
+			//print the child process
+			pid_t pid2 = getpid();
+			
+			printf("\nThe current pid is: %lun", pid1);
+			printf("\n\n");
+			
 			char c[50];
 			//copy string into c, but without spaces
 			removeBlank(c, string);
-			printf("\nThe new string is %s\n", c);
+			
+			//Debugging line
+			//printf("\nThe new string is %s\n", c);
 			//now that we have no spaces, we know the file name starts at the 6th element of the string, limiting factor for this, is that file names cannot contain spaces
 			char name[50];
-			//size_t size = sizeof(c);
-			//printf(size);
+			//pull the name parameter out of c, no spaces allowed in file names
+			for(int i = 0; i < 50; i++) name[i] = c[i+6];		
 			
-				for(int i = 0; i < 50; i++) name[i] = c[i+6];		
-				printf("\nThe name parameter is %s\n", name);
+			//Debugging line
+			//printf("\nThe name parameter is %s\n", name);
+			
+			//Make sure an actual file name was provided, if not throw an error message
+			if (name[0] == NULL){
+					printf("\nInvalid file name\n");}
+			else
 				create(name);
-			//else{
-			//	printf("\nInvalid file name\n");}
+
 
 		}
 		
